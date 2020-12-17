@@ -10,3 +10,6 @@ CREATE TABLE users(
 
 INSERT INTO users VALUES (DEFAULT, 'Md Dilshad Alam', 'mddalam1@gmail.com', 'uyh43gy7ghbt6dt3vxgvc536gcyvcyttfc7tcvv', 'admin');
 
+SELECT * FROM users;
+
+SELECT * FROM users WHERE email='mddalam1@gmail.com'

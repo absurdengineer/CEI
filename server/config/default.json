@@ -1,0 +1,6 @@
+{
+    "PGHOST" : "localhost",
+    "PGUSER" : "dillu",
+    "PGDATABASE" : "cei",
+    "PGPORT" : 5432
+}
