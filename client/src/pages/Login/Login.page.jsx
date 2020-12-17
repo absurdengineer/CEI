@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+import Alert from '../../components/Alert/Alert.component';
 import Button from '../../components/Button/Button.component';
+import CardHeader from '../../components/CardHeader/CardHeader.component';
+import Form from '../../components/Form/Form.component';
 import Input from '../../components/Input/Input.component'
+import InputWrapper from '../../components/InputWrapper/InputWrapper.component';
 
 class LoginPage extends Component {
     state = {
@@ -41,29 +46,25 @@ class LoginPage extends Component {
         const {email, password, res_text, res_code} = this.state
         return (
             <div className="card border-dark mb-3 offset-md-3 col-6 mt-5 p-5">
-                <div className="card-header">Login </div>
+                <div className="text-right mb-3">
+                    <Link className='btn btn-info' to='/register'>Register <i class="fa fa-user-plus" aria-hidden="true"></i></Link>
+                </div>
+                <CardHeader heading='Login' />
                 <div className="card-body text-dark">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Email address</label>
+                    <Form handleSubmit={this.handleSubmit}>
+                        <InputWrapper label='Email Address'>
                             <Input type="email" name="email" className="form-control" value={email} onChange={this.handleChange} required/>
-                            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
+                        </InputWrapper>
+                        <InputWrapper label='Password'>
                             <Input type="password" name="password" className="form-control" value={password} onChange={this.handleChange} required />
-                        </div>
+                        </InputWrapper>
                         <div className="text-center">
-                        <Button type="submit" className="btn btn-success">Submit</Button>
+                            <Button type="submit" className="btn btn-success">Submit</Button>
                         </div>
-                    </form>
+                    </Form>
                     {res_text &&
-                    <div className={'alert alert-dismissible fade show mt-3 '.concat(res_code === 200 ?'alert-success' :'alert-warning')} role="alert">
-                        <strong>{res_text}</strong>
-                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>}
+                    <Alert res_code={res_code} res_text={res_text} />
+                    }
                 </div>
             </div>
         );

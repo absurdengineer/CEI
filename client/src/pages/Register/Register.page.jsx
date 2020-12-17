@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+import Alert from '../../components/Alert/Alert.component';
 import Button from '../../components/Button/Button.component';
+import Form from '../../components/Form/Form.component';
 import Input from '../../components/Input/Input.component'
+import InputWrapper from '../../components/InputWrapper/InputWrapper.component';
 
 class RegisterPage extends Component {
     state = {
@@ -43,41 +47,36 @@ class RegisterPage extends Component {
         const {name, email, password, res_text, res_code, role} = this.state
         return (
             <div className="card border-dark mb-3 offset-md-3 col-6 mt-5 p-5">
+                <div className="text-right mb-3">
+                    <Link className='btn btn-info' to='/login'>Login <i className="fa fa-sign-in"></i></Link>
+                </div>
                 <div className="card-header">Register </div>
                 <div className="card-body text-dark">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Full Name</label>
+                    <Form handleSubmit={this.handleSubmit}>
+                        <InputWrapper label='Full Name'>
                             <Input type="text" name="name" className="form-control" value={name} onChange={this.handleChange} required/>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Email address</label>
+                        </InputWrapper>
+                        <InputWrapper label='Email Address'>
                             <Input type="email" name="email" className="form-control" value={email} onChange={this.handleChange} required/>
                             <div className="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
+                        </InputWrapper>
+                        <InputWrapper label='Password'>
                             <Input type="password" name="password" className="form-control" value={password} onChange={this.handleChange} required />
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Role</label>
+                        </InputWrapper>
+                        <InputWrapper label='Full Name'>
                             <select className="form-control" name='role' value={role} onChange={this.handleChange}>
                                 <option value="user">User</option>
                                 <option value="admin">Admin</option>
                                 <option value="superadmin">Super Admin</option>
                             </select>
-                        </div>
+                        </InputWrapper>
                         <div className="text-center">
                         <Button type="submit" className="btn btn-success">Submit</Button>
                         </div>
-                    </form>
+                    </Form>
                     {res_text &&
-                    <div className={'alert alert-dismissible fade show mt-3 '.concat(res_code === 200 ?'alert-success' :'alert-warning')} role="alert">
-                        <strong>{res_text}</strong>
-                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>}
+                    <Alert res_code={res_code} res_text={res_text} />
+                    }
                 </div>
             </div>
         );
