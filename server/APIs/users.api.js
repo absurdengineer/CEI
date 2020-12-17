@@ -1,5 +1,8 @@
 const { validateUser } = require('../models/user.model');
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+const _ = require('lodash')
+const config = require('config')
 const bcrypt = require('bcrypt')
 const pool = require('../database/database.setup');
 const winston = require('winston');
@@ -21,7 +24,9 @@ router.post('/', async (req, res) => {
             '${role}')
             RETURNING *;
         `)
-        res.status(200).json(rows[0])
+        const token = jwt.sign(_.pick(rows[0],['id','name','email','role']), config.get('JSONPRIVATEKEY'))
+        res.header('x-auth-token',token)
+        return res.status(200).send(token)
     } catch ({name, message}) {
         winston.error(`${name} : ${message}`)
         res.status(500).send('Something went Wrong!!!')
