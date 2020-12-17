@@ -6,8 +6,13 @@ const userSchema = Joi.object({
     password : Joi.string().alphanum().min(8).required(),
     role : Joi.string().valid('admin','user','superadmin')
 })
+const authSchema = Joi.object({
+    email : Joi.string().max(255).email().required(),
+    password : Joi.string().alphanum().min(8).required(),
+})
 
 const validateUser = user => userSchema.validate(user)
+const validateAuth = user => authSchema.validate(user)
 
-module.exports.userSchema = userSchema
 module.exports.validateUser = validateUser
+module.exports.validateAuth = validateAuth

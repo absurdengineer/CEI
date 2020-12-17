@@ -3,6 +3,7 @@ const express =  require('express')
 const cors = require('cors')
 const winston = require('winston')
 const users = require('./APIs/users.api')
+const auth = require('./APIs/auth.api')
 
 const app = express()
 
@@ -21,6 +22,7 @@ winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 
 //* Routes
 app.use('/api/users', users)
+app.use('/api/auth', auth)
 
 //* Handling uncaughtExceptions
 process.on('uncaughtException', (ex) => {
