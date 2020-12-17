@@ -23,6 +23,9 @@ winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 //* Routes
 app.use('/api/users', users)
 app.use('/api/auth', auth)
+app.get('/dummy', (req, res) => {
+    return res.json('hello')
+})
 
 //* Handling uncaughtExceptions
 process.on('uncaughtException', (ex) => {
